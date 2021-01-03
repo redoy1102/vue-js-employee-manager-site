@@ -1,7 +1,11 @@
 <template id="nav-bar" >
-<div>
-  <h3>Nav bar</h3>
-</div>
+<nav>
+  <div class="nav-wrapper green">
+    <div class="container">
+      <router-link to="/" class="brand-logo" >Employee Manager</router-link>
+    </div>
+  </div>
+</nav>
 </template>
 
 <script>
