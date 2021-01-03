@@ -2,11 +2,11 @@
   <div>
     <ul class="collection with-header">
       <li class="collection-header">
-        <h4>{{name}}</h4>
+        <h4>{{ name }}</h4>
       </li>
       <li class="collection-item">Employee ID#: {{ employee_id }}</li>
       <li class="collection-item">Department: {{ dept }}</li>
-      <li class="collection-item">Position: {{position}}</li>
+      <li class="collection-item">Position: {{ position }}</li>
     </ul>
     <router-link to="/" class="btn primary">Back</router-link>
     <button @click="deleteEmployee" class="btn red">Delete</button>
@@ -56,6 +56,18 @@ export default {
             this.position = position
           })
         })
+    },
+    deleteEmployee() {
+      if (confirm('Are you sure?')) {
+        db.collection('employees').where('employee_id', '==',
+          this.$route.params.employee_id).get()
+          .then(querySnapShot => {
+            querySnapShot.forEach(doc => {
+              doc.ref.delete()
+              this.$router.push('/')
+            })
+          })
+      }
     }
   }
 }
