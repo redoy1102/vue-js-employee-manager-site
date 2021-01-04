@@ -63,13 +63,45 @@ let router = new Router({
     },
   ]
 });
-router.beforeEach((to,from,next)=>{
-  if (to.matched.some(record =>record.meta.requiresAuth)){
-    //check if not logged in
-    if (!firebase.auth()){
 
+//nav guards
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    //check if not logged in
+
+    if (!firebase.auth().currentUser) {
+      // Go to login
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      // Proceed route
+      next();
     }
+  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+
+    //check if not logged in
+    if (firebase.auth().currentUser) {
+      // Go to login
+      next({
+        path: '/',
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      // Proceed route
+      next();
+    }
+  } else {
+    // Proceed route
+    next();
   }
-})
+});
+
+export default router;
 
 
