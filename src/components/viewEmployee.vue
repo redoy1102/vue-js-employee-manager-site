@@ -1,5 +1,6 @@
 <template id="view-employee">
   <div>
+    <h3>Employee Details</h3>
     <ul class="collection with-header">
       <li class="collection-header">
         <h4>{{ name }}</h4>

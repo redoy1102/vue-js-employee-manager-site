@@ -2,7 +2,7 @@
   <div id="dashboard">
     <ul class="collection with-header">
       <li class="collection-header">
-        <h4>Employees</h4>
+        <h4>All Employees</h4>
       </li>
       <li v-for="employee in employees"
           v-bind:key="employee.id"
